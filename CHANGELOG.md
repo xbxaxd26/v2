@@ -1,52 +1,16 @@
 # Changelog
 
-## 2.1.0 - March 2025
-
-### Added
-- **Enhanced RPC Redundancy System**
-  - Support for multiple RPC providers (Helius, Shyft) with automatic failover
-  - Connection Manager for managing HTTP endpoints with health checks
-  - WebSocket Manager Factory for handling WebSocket connections
-  - Customizable provider priority via environment variables
-  - Robust error handling and automatic reconnection
-- **Provider Comparison Tools**
-  - Added `npm run dev:helius` and `npm run dev:shyft` commands for testing specific providers
-  - New `compare-providers.sh` script to run providers in parallel for performance testing
-- **Localization Improvements**
-  - Added timezone support (Romania/Europe/Bucharest) for accurate timestamps
-  - Improved log formatting with consistent timezone information
-- **Documentation**
-  - Updated README with instructions for RPC redundancy configuration
-  - Added example environment file (.env.example) with placeholders
-
-### Changed
-- Modified environment validator to support multiple RPC endpoints
-- Improved error handling throughout the application
-- Enhanced WebSocket connection management
-- Updated token handlers to use lazy initialization pattern
-
-### Fixed
-- Timing issues with connection initialization
-- Resolved race conditions with handlers accessing uninitialized connections
-- Fixed timezone display issues showing incorrect timestamps
-
-## 2.0.0 - Initial Release
-
 - 23-mar-2025:19: Add sound notification when the order has been filled
-- 22-mar-2025:18: Fix liquidity Pool when subscribing to Raydium with two instructions, make it an array
-- 22-mar-2025:15: Fix Raydium program ID.
-- 22-mar-2025:04: Add Raydium support with correct program ID.
-- 22-mar-2025:01: Add proper error handling.
-- 21-mar-2025:08: Add BullX check support.
-- 21-mar-2025:03: Fix Sniperoo buy.
-- 21-mar-2025:00: Add auto-sell support when buying with Sniperoo.
-- 20-mar-2025:17: Improve token extraction logic.
-- 20-mar-2025:16: Add more granular rug check scenarios.
-- 19-mar-2025:08: Sniperoo integration.
-- 19-mar-2025:06: Fix rug check handler issues with error handling.
-- 19-mar-2025:02: Add timeout support & error handling.
-- 19-mar-2025:01: Fix timestamp display for logs (use luxon).
-- 19-mar-2025:00: Initial version with rug check from RugCheck.XYZ.
+- 23-mar-2025:19: Added Sniperoo Integration for sniping tokens via utils/sniperooHandler.ts
+- 23-mar-2025:19: Removed Jupiter Swap API functionality
+- 23-mar-2025:19: Removed Tracker functionality
+- 23-mar-2025:19: Updated .env file
+- 23-mar-2025:19: Renamed "holdings" database to "tokens" database
+- 23-mar-2025:19: Added multiple program websocket subscription posibility
+- 23-mar-2025:19: Added websocket manager to manage and maintain websocket connection
+- 23-mar-2025:19: Added "@solana/spl-token" library for token authorities lookup
+- 23-mar-2025:19: Removed Legacy rug options from full rug check
+- 23-mar-2025:19: Added option for full rug check, small snipe check or no check handled via utils/handlers/tokenHandler.ts
 
 ## Legacy Sniper updates (branch: legacy-sniper-jupiter-swap-api)
 
