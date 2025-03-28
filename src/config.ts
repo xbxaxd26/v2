@@ -119,12 +119,12 @@ export const config: Config = {
       block_symbols: ["XXX"],
       block_names: ["XXX"],
       // Warning
-      min_total_lp_providers: 1,
+      min_total_lp_providers: 0,
       min_total_markets: 1,
       min_total_market_liquidity: 10000,
       // Misc
       ignore_ends_with_pump: false,
-      max_score: 11400, // Set to 0 to ignore
+      max_score: 12000, // Set to 0 to ignore
     },
   },
   axios: {

@@ -10,6 +10,8 @@ export interface EnvConfig {
   HELIUS_WSS_URI: string;
   SNIPEROO_API_KEY: string;
   SNIPEROO_PUBKEY: string;
+  BIRDEYE_API_KEY: string;
+  SOLSCAN_API_KEY: string;
   // Arrays for multiple RPC endpoints
   rpc_https_endpoints: string[];
   rpc_wss_endpoints: string[];
@@ -17,6 +19,7 @@ export interface EnvConfig {
 
 export function validateEnv(): EnvConfig {
   const requiredEnvVars = ["HELIUS_HTTPS_URI", "HELIUS_WSS_URI"] as const;
+  const recommendedEnvVars = ["BIRDEYE_API_KEY", "SOLSCAN_API_KEY"] as const;
 
   const missingVars = requiredEnvVars.filter((envVar) => {
     return !process.env[envVar];
@@ -24,6 +27,12 @@ export function validateEnv(): EnvConfig {
 
   if (missingVars.length > 0) {
     throw new Error(`🚫 Missing required environment variables: ${missingVars.join(", ")}`);
+  }
+
+  // Check for recommended variables but don't throw an error if missing
+  const missingRecommended = recommendedEnvVars.filter((envVar) => !process.env[envVar]);
+  if (missingRecommended.length > 0) {
+    console.warn(`⚠️ Missing recommended environment variables for enhanced features: ${missingRecommended.join(", ")}`);
   }
 
   const validateUrl = (envVar: string, protocol: string, checkApiKey: boolean = false): boolean => {
@@ -136,6 +145,8 @@ export function validateEnv(): EnvConfig {
     HELIUS_WSS_URI: process.env.HELIUS_WSS_URI!,
     SNIPEROO_API_KEY: process.env.SNIPEROO_API_KEY!,
     SNIPEROO_PUBKEY: process.env.SNIPEROO_PUBKEY!,
+    BIRDEYE_API_KEY: process.env.BIRDEYE_API_KEY || '',
+    SOLSCAN_API_KEY: process.env.SOLSCAN_API_KEY || '',
     rpc_https_endpoints: httpsEndpoints,
     rpc_wss_endpoints: wssEndpoints,
   };

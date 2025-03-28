@@ -1,5 +1,6 @@
 import WebSocket from "ws";
 import { EventEmitter } from "events";
+import chalk from "chalk";
 
 // Connection states
 export enum ConnectionState {
@@ -191,10 +192,13 @@ export class WebSocketManager extends EventEmitter {
   // Logging helper
   private log(message: string, level: "info" | "error" = "info"): void {
     if (this.debug) {
+      const timestamp = new Date().toISOString();
+      const prefix = `[WebSocketManager ${timestamp}]`;
+      
       if (level === "error") {
-        console.error(`[WebSocketManager] ${message}`);
+        console.error(`${chalk.red(prefix)} ${chalk.red(message)}`);
       } else {
-        console.log(`[WebSocketManager] ${message}`);
+        console.log(`${chalk.blue(prefix)} ${chalk.dim(message)}`);
       }
     }
   }

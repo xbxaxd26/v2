@@ -1,5 +1,6 @@
 import { WebSocketManager, WebSocketManagerOptions, ConnectionState } from "./websocketManager";
 import { EventEmitter } from "events";
+import chalk from "chalk";
 
 export class WebSocketManagerFactory extends EventEmitter {
   private wssEndpoints: string[];
@@ -174,13 +175,13 @@ export class WebSocketManagerFactory extends EventEmitter {
       
       switch (level) {
         case "warn":
-          console.warn(`${prefix} ⚠️ ${message}`);
+          console.warn(`${chalk.yellow(prefix)} ${chalk.yellow('⚠️')} ${chalk.yellow(message)}`);
           break;
         case "error":
-          console.error(`${prefix} ❌ ${message}`);
+          console.error(`${chalk.red(prefix)} ${chalk.red('❌')} ${chalk.red(message)}`);
           break;
         default:
-          console.log(`${prefix} ℹ️ ${message}`);
+          console.log(`${chalk.blue(prefix)} ${chalk.blue('ℹ️')} ${chalk.dim(message)}`);
       }
     }
   }

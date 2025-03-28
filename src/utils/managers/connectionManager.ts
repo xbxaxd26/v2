@@ -1,5 +1,6 @@
 import { Connection, Commitment, ConnectionConfig } from "@solana/web3.js";
 import EventEmitter from "events";
+import chalk from "chalk";
 
 export interface ConnectionManagerConfig {
   httpsEndpoints: string[];
@@ -182,18 +183,15 @@ export class ConnectionManager extends EventEmitter {
       // Only run health check if the connection was used recently (within 2x the health check interval)
       const timeSinceLastUse = Date.now() - this.lastTimeUsed;
       if (timeSinceLastUse > this.healthCheckInterval * 2) {
-        this.log("Skipping health check - connection not used recently", "info");
         return;
       }
       
-      this.log("Running RPC health check...", "info");
+      // Run health check silently unless there's an issue
       const isHealthy = await this.testConnection();
       
       if (!isHealthy) {
         this.log("Health check failed, switching endpoint", "warn");
         this.handleConnectionFailure(new Error("Health check failed"));
-      } else {
-        this.log("Health check passed", "info");
       }
     }, this.healthCheckInterval);
   }
@@ -230,13 +228,13 @@ export class ConnectionManager extends EventEmitter {
       
       switch (level) {
         case "warn":
-          console.warn(`${prefix} ⚠️ ${message}`);
+          console.warn(`${chalk.yellow(prefix)} ${chalk.yellow('⚠️')} ${chalk.yellow(message)}`);
           break;
         case "error":
-          console.error(`${prefix} ❌ ${message}`);
+          console.error(`${chalk.red(prefix)} ${chalk.red('❌')} ${chalk.red(message)}`);
           break;
         default:
-          console.log(`${prefix} ℹ️ ${message}`);
+          console.log(`${chalk.blue(prefix)} ${chalk.blue('ℹ️')} ${chalk.dim(message)}`);
       }
     }
   }
